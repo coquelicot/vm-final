@@ -12,6 +12,10 @@
 
 - 作法的亮點：
 
+    > virtual arena (避免把底層的東西 expose 出來)
+    > 你只要不跑 daemon 就可以不加入 dedup (如果已知你的東西與眾不同，就不用因此付出 overhead)
+    > 還沒看完 XDDD
+
 ## 技術細節
 
 ## 實驗結果
