@@ -16,18 +16,18 @@
 
 ## 技術細節
 
-    > 三不五時醒來掃一下的 clock
-    > R/M bit 另外加兩個 bits 計數， page 分類成 C1 - C4
-    > full page hash for share page, 神秘 64byte block hash for similarity
-    > 分段處理 hash, not necessary 每 phase 清空
-    > ignore 壓縮率不到一半的 patch
-    > 可以把東西塞進 disk 的 swapd, 注意 race condition.
-    > 修改 ioemu 以避免它把整個 address space map 進去 dom-0
+> 三不五時醒來掃一下的 clock
+> R/M bit 另外加兩個 bits 計數， page 分類成 C1 - C4
+> full page hash for share page, 神秘 64byte block hash for similarity
+> 分段處理 hash, not necessary 每 phase 清空
+> ignore 壓縮率不到一半的 patch
+> 可以把東西塞進 disk 的 swapd, 注意 race condition.
+> 修改 ioemu 以避免它把整個 address space map 進去 dom-0
 
 ## 實驗結果
 
-    > 對 performance 的影響沒有很大。 7% (但我覺得好像更多一點)
-    > 省下潮多 page!! (三個方案疊起來大勝 ESXi), 有時可以 free 掉 7x% 之類。
+> 對 performance 的影響沒有很大。 7% (但我覺得好像更多一點)
+> 省下潮多 page!! (三個方案疊起來大勝 ESXi), 有時可以 free 掉 7x% 之類。
 
 ## 無關閒聊
 
