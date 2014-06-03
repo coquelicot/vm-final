@@ -34,3 +34,28 @@ The format is part of the report specification, as indicated on the CEBIA.
 - Main contributions
 - Comparisons
 - Our own idea inspired by the papers
+
+## Outline
+
+1. What's dedup; why dedup
+
+1. how to dedup
+  * Finding candidates, scanning, etc
+  * make the page copy-on-write
+
+1. Scanning order (XLH)
+
+1. Free pages (Introspec)
+  * Treat them as zero!
+
+1. Not only identical pages (Diff)
+  * diff + compression
+
+1. Issues?
+
+1. More benefits
+  * Get more VM!
+  * Fast migration
+
+1. Dedup on (SAN) FS!
+  * Underlying FS: VMFS

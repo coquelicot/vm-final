@@ -1,0 +1,171 @@
+<!-- markdown example: https://github.com/hakimel/reveal.js/blob/master/plugin/markdown/example.html -->
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>MemDed - VM Memory Deduplication</title>
+
+    <meta name="description" content="Report on VM Memory Deduplication">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="css/reveal.min.css">
+    <link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+        if( window.location.search.match( /print-pdf/gi ) ) {
+            var link = document.createElement( 'link' );
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            link.href = 'css/print/pdf.css';
+            document.getElementsByTagName( 'head' )[0].appendChild( link );
+        }
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+<div class="reveal"><div class="slides">
+<section data-markdown data-separator="^\n---\n$" data-vertical="^\n--\n$">
+<script type="text/template">
+# MeMDeD
+
+Memory Deduplication
+
+```
+b00902107 Jui-Min Lee
+b00902107 Shu-Hung You
+```
+
+---
+
+### Introduction to Deduplication
+
+- Deduplication: Share Your Pages!
+
+- Why we want deduplication?
+
+---
+
+### Deduplication 101
+- Finding repeated pages
+- Do the sharing
+
+---
+
+### Improve your scanning: XLH
+- XLH: More effective memory deduplication scannersthrough cross-layer hints
+
+--
+
+### Outline
+
+--
+
+### Technical highlights
+
+--
+
+### Major experimental results
+
+---
+
+### Just Share Free Pages!
+- Introspection-based memory de-duplication and migration
+
+--
+
+### Outline
+
+--
+
+### Technical highlights
+
+--
+
+### Major experimental results
+
+---
+
+### More Than Sharing
+- Difference Engine: Harnessing Memory Redundancy in Virtual Machines
+
+--
+
+### Outline
+
+--
+
+### Technical highlights
+
+--
+
+### Major experimental results
+
+---
+
+### Issues
+
+---
+
+### What do we gain?
+- Having more VMs: Lower Down Your Workload!
+
+- Faster VM Migration!
+
+---
+
+### Dedup on the File System
+
+- Not only memory, but the whole VM!
+
+</script>
+</section>
+</div></div>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.min.js"></script>
+
+<script>
+
+    // Full list of configuration options available here:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Parallax scrolling
+        // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+        // parallaxBackgroundSize: '2100px 900px',
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+            { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+            { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+            { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+            { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+            { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+            { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+        ]
+    });
+
+</script>
+
+</body>
+</html>
