@@ -54,7 +54,15 @@ b00902107 Shu-Hung You
 
 - Introduction to memory deduplication
 
-- Challenges and improvements
+- Current challenges and improvements
+
+    * Scanning via I/O hints
+
+    * Share free pages
+
+    * Share similar pages
+
+- Yet another application: SAN FS deduplication
 
 - Conclusion
 
@@ -82,14 +90,6 @@ b00902107 Shu-Hung You
 
 ---
 
-### Deduplication 101
-
-- Finding repeated pages
-
-- Do the sharing
-
----
-
 ### Existing Dedups.
 
 - Linux KSM/Kernel SamePage Merge
@@ -98,22 +98,158 @@ b00902107 Shu-Hung You
 
 ---
 
-### Improve your scanning: XLH
-- XLH: More effective memory deduplication scannersthrough cross-layer hints
+### Deduplication 101
+
+- The easy part: do the sharing
+
+    Link the page and mark it as copy-on-write.
+
+> XXX TODO: insert image here
+
+--
+
+### Deduplication 101
+
+- The hard part: finding repeated pages
+
+    * Periodically perform full-memory scan
+
+    * Maintain a hash table
+
+> XXX TODO: insert image here
+
+--
+
+### Deduplication 101
+
+- Problem?
+
+    * **Memory scanning**: simple, slow and stupid
+
+        + Short-lived pages are mostly ignored
+
+        + Should/Could we share them?
+
+--
+
+### Deduplication 101
+
+- Problem?
+
+    * The hash table is too large
+
+        + Use small table or store only part of the page
+
+        + Tolerate collision or long scanning time
 
 ---
 
-### Just Share Free Pages!
+### Improve Your Scanning: XLH
+- XLH: More effective memory deduplication scanners through cross-layer hints
+
+    * Konrad Miller, et. al., Karlsruhe Institute of Technology
+
+    * USENIX Annual Technical Conference '13 [3]
+
+--
+
+### Improve Your Scanning: XLH
+
+- Rationale
+
+    * Tracking I/O actions to detect short-lived pages
+
+    * Can we reduce peak memory usage?
+
+> XXX TODO: insert architecture image
+
+--
+
+### Improve Your Scanning: XLH
+
+> XXX TODO: insert state image (process hint, etc)
+
+--
+
+### Improve Your Scanning: XLH
+
+> XXX TODO: insert benchmark graph here
+
+---
+
+### Make Use Of Free Pages!
+
+- Observation: There are lots of zero pages in a Windows VM
+
+> XXX TODO: insert diff engine benchmark (zero page experiment) here
+
+--
+
+### Make Use Of Free Pages!
+
+- Lots of them are **free pages**!
+
+    * How about Linux kernel?
+
+    * Can we identify them and share them?
+
+        (Regardless of its content!)
+
+
+--
+
+### Make Use Of Free Pages!
+
+# *YES, WE CAN!*
+
+--
+
+### Make Use Of Free Pages!
 - Introspection-based memory de-duplication and migration
 
+    * Jui-Hao Chiang, Stony Brook Univ.
+
+        Han-Lin Li, et. al., Industrial Technology Research Institue (Hsinchu)
+
+    * Virtual Execution Environments '13 [4]
+
+--
+
+### Make Use Of Free Pages!
+- Pinning down free memory pool *without paravirtualization*
+
+> XXX TODO: XXX TODO
+
+--
+
+### Make Use Of Free Pages!
+
+> XXX TODO: insert benchmarks here
+
 ---
 
-### More Than Sharing
+### More Than Just Sharing
 - Difference Engine: Harnessing Memory Redundancy in Virtual Machines
+
+    * D. Gupta, et. al., Univ. of California
+
+    * USENIX Symposium on OSDI '08 [1]
+
+--
+
+### More Than Just Sharing
+- The other direction: Why not just **patch** your pages?
+
+--
+
+### More Than Just Sharing
+- Patching/compressing only NRU pages
 
 ---
 
 ### Issues
+
+> XXX TODO: XXX TODO
 
 ---
 
@@ -126,7 +262,39 @@ b00902107 Shu-Hung You
 
 ### Dedup on the File System
 
-- More than memory: Dedup the whole VM!
+- Aside from the memory: Whole-VM deduplication!
+
+---
+
+### Conclusion
+
+> XXX TODO: XXX TODO
+
+---
+
+### Appendix - references
+
+1. "_Difference Engine: Harnessing Memory Redundancy in Virtual Machines_",
+    D. Gupta, et. al.,
+    **USENIX Symposium on Operation System Design and Implementation 2008**.
+
+1. "_Decentralized Deduplication in SAN Cluster File Systems_",
+    T. Austin,
+    **USENIX Annual Technical Conference, 2009**.
+
+1. "_XLH: More effective memory deduplication scannersthrough cross-layer hints_",
+    Konrad Miller, et. al.,
+    **USENIX Annual Technical Conference, 2013**
+
+1. "_Introspection-based memory de-duplication and migration_",
+    Jui-Hao Chiang, et. al.,
+    **Proceedings of the 9th ACM SIGPLAN/SIGOPS international conference on Virtual execution environments, 2013**
+
+---
+
+### Appendix - Paper Summaries
+
+> XXX TODO: XXX TODO
 
 </script>
 </section>
