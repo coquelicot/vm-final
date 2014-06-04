@@ -389,13 +389,33 @@ Performance on Linux
 
 - (Decentralized) deduplication process
 
-> XXX TODO: insert flow chart
+![FS dedup](./resource/fs-dedup-flow.jpg)
 
 --
 
 ### Dedup on the File System
 
-> XXX TODO: insert benchmark
+- Evaluation
+
+    * At 4KB level: reduce 1.3TB to 235GB
+
+    * Ordinary linked-clone: save 1.3TB to 740GB
+
+![FS block](./resource/fs-block-size.jpg)
+
+( from [2] figure 5 ) <!-- .element: class="text60" -->
+
+--
+
+### Dedup on the File System
+
+- Evaluation
+
+    * Surprising block repetition count
+
+![FS reference count](./resource/fs-ref-cnt.jpg)
+
+( from [2] figure 6 ) <!-- .element: class="text60" -->
 
 ---
 
