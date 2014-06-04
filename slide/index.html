@@ -13,7 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
     <link rel="stylesheet" href="css/reveal.min.css">
-    <link rel="stylesheet" href="css/theme/default.css" id="theme">
+    <link rel="stylesheet" href="css/theme/blood.css" id="theme">
 
     <!-- For syntax highlighting -->
     <link rel="stylesheet" href="lib/css/zenburn.css">
@@ -50,68 +50,66 @@ b00902107 Shu-Hung You
 
 ---
 
+### Outline
+
+- Introduction to memory deduplication
+
+- Challenges and improvements
+
+- Conclusion
+
+---
+
 ### Introduction to Deduplication
 
-- Deduplication: Share Your Pages!
+- Deduplication: Share your pages!
+
+    * We only need **1 copy** for each unique pages
+
+    * You must have heard it: `fork()`!
+
+> XXX TODO: insert image here
+
+--
+
+### Introduction to Deduplication
 
 - Why we want deduplication?
+
+    * While HDDs are cheap, the memory is not
+
+    * We often run a bunch of VMs having same configuration
 
 ---
 
 ### Deduplication 101
+
 - Finding repeated pages
+
 - Do the sharing
+
+---
+
+### Existing Dedups.
+
+- Linux KSM/Kernel SamePage Merge
+
+- VMware ESX
 
 ---
 
 ### Improve your scanning: XLH
 - XLH: More effective memory deduplication scannersthrough cross-layer hints
 
---
-
-### Outline
-
---
-
-### Technical highlights
-
---
-
-### Major experimental results
-
 ---
 
 ### Just Share Free Pages!
 - Introspection-based memory de-duplication and migration
 
---
-
-### Outline
-
---
-
-### Technical highlights
-
---
-
-### Major experimental results
-
 ---
 
 ### More Than Sharing
 - Difference Engine: Harnessing Memory Redundancy in Virtual Machines
-
---
-
-### Outline
-
---
-
-### Technical highlights
-
---
-
-### Major experimental results
 
 ---
 
@@ -120,7 +118,7 @@ b00902107 Shu-Hung You
 ---
 
 ### What do we gain?
-- Having more VMs: Lower Down Your Workload!
+- Having more VMs; lower down your workload!
 
 - Faster VM Migration!
 
@@ -128,7 +126,7 @@ b00902107 Shu-Hung You
 
 ### Dedup on the File System
 
-- Not only memory, but the whole VM!
+- More than memory: Dedup the whole VM!
 
 </script>
 </section>
