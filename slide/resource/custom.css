@@ -3,7 +3,7 @@ p.text60 {
   line-height: 60%;
 }
 
-table thead { background: #111111;}
+table thead { background: #111133;}
 table tbody tr:nth-child(odd) { background: #cccccc; }
 table tbody tr:nth-child(even) { background: #dddddd; }
 th { color: #ffffff; }
