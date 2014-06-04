@@ -79,7 +79,7 @@ b00902107 Shu-Hung You
 
     * You must have heard it: `fork()`!
 
-> XXX TODO: insert image here
+![intro](./resource/dedup-intro.jpg)
 
 --
 
@@ -91,13 +91,34 @@ b00902107 Shu-Hung You
 
     * We often run a bunch of VMs having same configuration
 
+--
+
+### Introduction to Deduplication
+<!-- http://speakvirtual.com/2011/02/28/memory-overcommitment-in-xenserver-and-esx/ -->
+
+- Previous approaches to memory overcommitment
+
+    * Transparent page sharing
+
+    * Ballooning
+
+        + Requesting memory inside the VM
+
+    * Compression
+
+        + only faster than swapping
+
+    * Swapping
+
 ---
 
 ### Existing Dedups.
 
-- Linux KSM/Kernel SamePage Merge
+- Linux KSM (Kernel SamePage Merging)
 
 - VMware ESX
+
+    * Transparent page sharing (TPS)
 
 ---
 
@@ -119,7 +140,7 @@ b00902107 Shu-Hung You
 
     * Maintain a hash table
 
-> XXX TODO: insert image here
+![dedup-scan-hash](./resource/dedup-scan.jpg) 
 
 --
 
