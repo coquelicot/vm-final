@@ -19,6 +19,7 @@
 
 > Windows: scan PE file -> find kernel -> get pdb file -> find desired structure -> ya!
 > Linux: find real mode metadata -> get source -> compile stub -> scan -> ya!
+> Beware of race condition!!
 
 ## 實驗結果
 
