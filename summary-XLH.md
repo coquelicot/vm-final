@@ -23,7 +23,7 @@
 
 ## 實驗結果
 
-> 發現的 share opportunity 明顯增加， up to 5x. (但這跟真正 share 的還是有一點距離)
+> 發現的 share opportunity 明顯增加， up to 5x.
 > 找出多數 sharable page 的速度明顯加快，大概可以快個二到四分鐘。
 
 ## 質疑
