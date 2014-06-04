@@ -320,18 +320,16 @@ Performance on Linux
 
 ---
 
-### Issues
-
-> XXX TODO: XXX TODO
-
----
-
 ### What do we gain?
 - Use less memory
 
 - Having more VMs; lower down your workload!
 
+    * Ya, we have more places now!
+
 - Faster VM Migration!
+
+    * No need to migrated repeated page or free memory
 
 ---
 
@@ -339,7 +337,9 @@ Performance on Linux
 
 - Aside from the memory: Whole-VM deduplication!
 
-> XXX TODO: insert VM and VMM and SAN and dedup graph
+- Apply the deduplication technique to shared file system
+
+![FS intro](./resource/fs-intro.jpg)
 
 --
 
@@ -371,6 +371,20 @@ Performance on Linux
 
 - Virtual arena: pointing to copy-on-write blocks
 
+![FS dedupd](./resource/fs-dedupd-log.jpg)
+
+(from [2] figure 3) <!-- .element class="text60" -->
+
+--
+
+### Dedup on the File System
+
+- Hash collision gives *hint* on possible duplication
+
+- (Decentralized) deduplication process
+
+> XXX TODO: insert flow chart
+
 --
 
 ### Dedup on the File System
@@ -379,9 +393,27 @@ Performance on Linux
 
 ---
 
-### Conclusion
+### Issues
 
 > XXX TODO: XXX TODO
+
+---
+
+### Conclusion
+
+- Sharing opportunities
+
+    * No one simple solution
+
+    * Boost up time-consuming memory scan
+
+- Share policy
+
+    * Mostly share not-recently-modified pages
+
+    * XLH proved effective but costly
+
+- File system deduplication
 
 ---
 
