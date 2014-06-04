@@ -17,12 +17,12 @@
 
 ## 技術細節
 
-> Windows: scan PE file -> find kernel -> get pdb file -> find desired structure -> ya!
-> Linux: find real mode metadata -> get source -> compile stub -> scan -> ya!
+    > Windows: scan PE file -> find kernel -> get pdb file -> find desired structure -> ya!
+    > Linux: find real mode metadata -> get source -> compile stub -> scan -> ya!
 
 ## 實驗結果
 
-> 對於 windows guest 的 dedup 幫助不大，但是 dedup 速度有一些進步 (因為 scan overhead 比較大)
-> 對於 windows guest 的 migration 幫助很大，在 guest free page 挺多時，可以省掉可能一半的 traffic.
-> 對於 linux guest 的 dedup 幫助挺多，有明顯增加 shared page.
-> 對於 linux guest 的 migration 幫助很大，跟 windows 差不多概念。
+    > 對於 windows guest 的 dedup 幫助不大，但是 dedup 速度有一些進步 (因為 scan overhead 比較大)
+    > 對於 windows guest 的 migration 幫助很大，在 guest free page 挺多時，可以省掉可能一半的 traffic.
+    > 對於 linux guest 的 dedup 幫助挺多，有明顯增加 shared page.
+    > 對於 linux guest 的 migration 幫助很大，跟 windows 差不多概念。

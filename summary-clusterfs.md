@@ -14,7 +14,7 @@
 
     > virtual arena (避免把底層的東西 expose 出來)
     > 你只要不跑 daemon 就可以不加入 dedup (如果已知你的東西與眾不同，就不用因此付出 overhead)
-    > 還沒看完 XDDD
+    > extensible hashing for index file.
 
     > 不需要中央管控機制, dedup 跟修正的作用都分散在每個 VMM
 
