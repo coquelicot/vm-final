@@ -324,7 +324,33 @@ Performance on Linux
 
 ### More Than Just Sharing
 
-> XXX TODO: insert benchmark graph here
+- Overhead of the operations
+
+| Funtion | Mean execution time (&mu;s) |
+|:---------------:|-------:|
+| `shared_pages`  |    6.2 |
+| `cow_break`     |   25.1 |
+| `compress_page` |   29.1 |
+| `uncompress`    |   10.4 |
+| `patch_page`    |   18.6 |
+| `swap_out_page` |   48.9 |
+| `swap_in_page`  | 7151.6 |
+
+--
+
+### More Than Just Sharing
+
+Four idendical VMs running `dbench`
+
+![Diff Homo Eval](./resource/diff-eval-homo.jpg)
+
+--
+
+### More Than Just Sharing
+
+Unbelievable sharing on *heterogeneous* VMs
+
+![Diff mixed](./resource/diff-eval.jpg)
 
 ---
 
@@ -422,6 +448,18 @@ Performance on Linux
 ![FS reference count](./resource/fs-ref-cnt.jpg)
 
 ( from [2] figure 6 ) <!-- .element: class="text60" -->
+
+--
+
+### What do we gain? (revisited)
+- Use less memory
+- Having more VMs; lower down your workload!
+- Faster VM Migration!
+- *Faster VM boot up!* (e.g. classroom)
+
+![fs VM boot](./resource/fs-vmboot.jpg)
+
+( from [2] figure 7 ) <!-- .element: class="text60" -->
 
 ---
 
