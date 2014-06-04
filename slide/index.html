@@ -79,7 +79,7 @@ b00902107 Shu-Hung You
 
     * You must have heard it: `fork()`!
 
-> XXX TODO: insert image here
+![intro](./resource/dedup-intro.jpg)
 
 --
 
@@ -91,13 +91,34 @@ b00902107 Shu-Hung You
 
     * We often run a bunch of VMs having same configuration
 
+--
+
+### Introduction to Deduplication
+<!-- http://speakvirtual.com/2011/02/28/memory-overcommitment-in-xenserver-and-esx/ -->
+
+- Previous approaches to memory overcommitment
+
+    * Transparent page sharing
+
+    * Ballooning
+
+        + Requesting memory inside the VM
+
+    * Compression
+
+        + only faster than swapping
+
+    * Swapping
+
 ---
 
 ### Existing Dedups.
 
-- Linux KSM/Kernel SamePage Merge
+- Linux KSM (Kernel SamePage Merging)
 
 - VMware ESX
+
+    * Transparent page sharing (TPS)
 
 ---
 
@@ -119,7 +140,7 @@ b00902107 Shu-Hung You
 
     * Maintain a hash table
 
-> XXX TODO: insert image here
+![dedup-scan-hash](./resource/dedup-scan.jpg) 
 
 --
 
@@ -188,7 +209,15 @@ b00902107 Shu-Hung You
 
 - Observation: There are lots of zero pages in a Windows VM
 
-> XXX TODO: insert diff engine benchmark (zero page experiment) here
+
+|       Pages         |   Initial   | After Sharing | Percentage |
+|:--------------------|------------:|--------------:|-----------:|
+| Unique              |   191,646   |    191,646    |     48.75% |
+| Sharable (non-zero) |    52,436   |      3,577    |     13.34% |
+| **Zero**            | **149,038** |     **1**     | **37.91%** |
+| *Total*             |   393,120   |    195,224    |    100.00% |
+
+( [1] table 1, an experiment ) <!-- .element: class="text60" -->
 
 --
 
@@ -266,11 +295,22 @@ Performance on Linux
 - Sharing is good since many pages are identical
 - Unfortunately, some pages are just **almost** the same
     * Why not **patch** your pages?
+    * Patching/compressing not-recently-used pages
+
+![diff intro](./resource/diff-intro.jpg)
+
+( from [1] figure 1 ) <!-- .element class="text60" -->
 
 --
 
 ### More Than Just Sharing
-- Patching/compressing only NRU pages
+
+|          Page           |      Description      |        Strategy         |
+|:-----------------------:|:---------------------:|:------------------------|
+| **C1** <br/>(M,R)=(1,1) | recently modified     | ignored                 |
+| **C2** <br/>(M,R)=(1,0) | not recently modified | share / patch reference |
+| **C3** <br/>(M,R)=(0,0) | not recently accessed | shared / patched        |
+| **C4**                  | being C3 for a while  | all (compression, swap) |
 
 --
 
@@ -287,6 +327,8 @@ Performance on Linux
 ---
 
 ### What do we gain?
+- Use less memory
+
 - Having more VMs; lower down your workload!
 
 - Faster VM Migration!
@@ -297,6 +339,8 @@ Performance on Linux
 
 - Aside from the memory: Whole-VM deduplication!
 
+> XXX TODO: insert VM and VMM and SAN and dedup graph
+
 --
 
 ### Dedup on the File System
@@ -304,6 +348,34 @@ Performance on Linux
     * T. Clements, et. al., VMware, Inc., MIT CSAIL
 
     * USENIX Annual Technical Conference '09 [2]
+
+--
+
+### Dedup on the File System
+- VMware VMFS (SAN: storage area network)
+
+    * Distributed file system, shared storage device
+
+    * Already support *copy-on-write*
+
+        + VM linked-clone
+
+    * Mixed block size
+
+--
+
+### Dedup on the File System
+- Write monitering and file indexing
+
+- Block index: entry list, sorted by hash
+
+- Virtual arena: pointing to copy-on-write blocks
+
+--
+
+### Dedup on the File System
+
+> XXX TODO: insert benchmark
 
 ---
 
