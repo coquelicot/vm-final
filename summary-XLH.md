@@ -17,11 +17,21 @@
 
 ## 技術細節
 
-    > XLH will sniff at VMMs VFS and write to circular hint stack
-    > process XLH and dudup interleavely
-    > replace RB-tree with hash table with tuned size
+> XLH will sniff at VMMs VFS and write to circular hint stack
+> process XLH and dudup interleavely
+> replace RB-tree with hash table with tuned size
 
 ## 實驗結果
 
-    > 發現的 share opportunity 明顯增加， up to 5x. (但這跟真正 share 的還是有一點距離)
-    > 找出多數 sharable page 的速度明顯加快，大概可以快個二到四分鐘。
+> 發現的 share opportunity 明顯增加， up to 5x. (但這跟真正 share 的還是有一點距離)
+> 找出多數 sharable page 的速度明顯加快，大概可以快個二到四分鐘。
+
+## 質疑
+
+> 在 SSD 上說對 I/O 沒有太大的 overhead, how about HDD?
+> 挖出太多短期 sharable page 會不會反而造成太多 trap 很虧？
+
+## 有待改進
+
+> Adjust stack size on the fly.
+> Decide hash table size automatically.
