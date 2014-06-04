@@ -24,13 +24,23 @@
 ## 技術細節
 
 > 每個 VMM 都有個自己的 writer moniter，也有個自己的 write log。我們蒐集一些 write
-> 之後就會定時把他寫進 write log 然後尋找 duplication。
+> 之後就會定時把他寫進 index file 然後尋找 duplication。
 
-> 為了做到這點，每個 host 的 write log 都是依照 hash 值分割成很多小檔案，這樣
+> 為了做到這點，每個 host 的 index file 都是依照 hash 值分割成很多小檔案，這樣
 > 每次依照 (sorted) hash 順序更新時只要鎖一個小檔案。一旦某個檔案內容太多，我們
 > 就再把它切一半。
 
 > 一旦發現 duplicate，就把我這邊的 Unique 更新成 Shared，然後送一個 pull request
 > 給對方。等對方再掃到/檢查到 pull request 時，就 merge 。
 
+- 註：
+    1. vmfs 的 copy-on-write bit 是寫在 pointer 上不是 block 的 metadata 上
+    1. vmfs 的區塊大小分為 1MB 跟 4KB 兩種。我們需要修改 VMFS 來讓它支援 mixed
+        block size。
+
 ## 實驗結果
+
+> 用 4KB 作為 block size 時可以把 1.3 TB 的資料縮成 235 GB（內容是 113 個 Win XP VM） block size 越大， dedup 的量就越小；當 block size 到 1 MB 時節省的量只跟
+linked-clone 差不多。
+> 儲存這些額外的資料需要總共 2.7 GB 左右的 metadata（1.5 GB for index，194 MB for
+virtual arena FS metadata）
