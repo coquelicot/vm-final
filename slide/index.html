@@ -490,7 +490,36 @@ Unbelievable sharing on *heterogeneous* VMs
 
 ### Issues
 
-> XXX TODO: XXX TODO
+- Sharing cause traps
+    * In XLH, many short-lived pages are shared
+        + share and trap and share and trap and share ....
+![trap.jpg](resource/trap.jpg)
+    * In introspection, **all** free pages are read-only
+        + Using new memory always cause trap!
+
+--
+
+### Issues
+
+- Dedup introduce overhead
+  * Scaning, Hashing
+  * Sniffing (XLH)
+  * Patching, Compressing (Diff)
+
+![diff-overhead.jpg](resource/diff-overhead.jpg)
+
+( from [1] table 3 ) <!-- .element: class="text60" -->
+
+---
+
+### Ideas
+
+- Copy on neighbour write
+    * Accesses may have spatial locality, copy before it traps
+    * Must track for each VM, however.
+- Ondemand dedup
+    * With the technique of XLH, sharing becomes faster
+    * Only introspects unless VMs are allocating pages back
 
 ---
 
