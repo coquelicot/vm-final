@@ -89,7 +89,7 @@ b00902107 Shu-Hung You
 
     * While HDDs are cheap, the memory is not
 
-    * We often run a bunch of VMs having same configuration
+    * We often run a bunch of VMs having same configurations
 
 --
 
@@ -120,6 +120,10 @@ b00902107 Shu-Hung You
 
     * Transparent page sharing (TPS)
 
+        + *Memory resource management in VMware ESX Server*
+
+        + C.A. Waldspurger, USENIX OSDI '02
+
 ---
 
 ### Deduplication 101
@@ -136,9 +140,9 @@ b00902107 Shu-Hung You
 
 - The hard part: finding repeated pages
 
-    * Periodically perform full-memory scan
+    * Periodically perform full-memory scans
 
-    * Maintain a hash table
+    * (Maintain a hash table)
 
 ![dedup-scan-hash](./resource/dedup-scan.jpg) 
 
@@ -149,6 +153,8 @@ b00902107 Shu-Hung You
 - Problem?
 
     * **Memory scanning**: simple, slow and stupid
+
+        + Must scan at a low rate to keep the overhead small
 
         + Short-lived pages are mostly ignored
 
@@ -162,14 +168,14 @@ b00902107 Shu-Hung You
 
     * The hash table is too large
 
-        + Use small table or store only part of the page
+        + Use small table or store only part of the hashes?
 
-        + Tolerate collision or long scanning time
+        + Tolerate collision or longer scanning time
 
 ---
 
 ### Improve Your Scanning: XLH
-- XLH: More effective memory deduplication scanners through cross-layer hints
+- *XLH: More effective memory deduplication scanners through cross-layer hints*
 
     * Konrad Miller, et. al., Karlsruhe Institute of Technology
 
@@ -184,6 +190,8 @@ b00902107 Shu-Hung You
     * Tracking I/O actions to detect short-lived pages
 
     * Can we reduce peak memory usage?
+
+    * Tries to share *page cache*.
 
 ![XLH-arch](resource/XLH-arch.jpg)
 
@@ -267,7 +275,7 @@ Merging into KSM's flow
 --
 
 ### Make Use Of Free Pages!
-- Introspection-based memory de-duplication and migration
+- *Introspection-based memory de-duplication and migration*
 
     * Jui-Hao Chiang, Stony Brook Univ.
 
@@ -317,7 +325,7 @@ Performance on Linux
 ---
 
 ### More Than Just Sharing
-- Difference Engine: Harnessing Memory Redundancy in Virtual Machines
+- *Difference Engine: Harnessing Memory Redundancy in Virtual Machines*
 
     * D. Gupta, et. al., Univ. of California
 
@@ -350,9 +358,7 @@ Performance on Linux
 
 ### More Than Just Sharing
 
-- Overhead of the operations
-
-| Funtion | Mean execution time (&mu;s) |
+| Funtion | Mean execution time [&mu;s] (overhead)  |
 |:---------------:|-------:|
 | `shared_pages`  |    6.2 |
 | `cow_break`     |   25.1 |
@@ -367,7 +373,7 @@ Performance on Linux
 
 ### More Than Just Sharing
 
-Four idendical VMs running `dbench`
+Four identical VMs running `dbench`
 
 ![Diff Homo Eval](./resource/diff-eval-homo.jpg)
 
@@ -400,16 +406,16 @@ Unbelievable sharing on *heterogeneous* VMs
 
 ### Dedup on the File System
 
-- Aside from the memory: Whole-VM deduplication!
+- Aside from the memory: whole-VM deduplication!
 
-- Apply the deduplication technique to shared file system
+- Apply the deduplication technique to the shared file system
 
 ![FS intro](./resource/fs-intro.jpg)
 
 --
 
 ### Dedup on the File System
-- Decentralized Deduplication in SAN Cluster File Systems
+- *Decentralized Deduplication in SAN Cluster File Systems*
     * T. Clements, et. al., VMware, Inc., MIT CSAIL
 
     * USENIX Annual Technical Conference '09 [2]
@@ -444,7 +450,7 @@ Unbelievable sharing on *heterogeneous* VMs
 
 ### Dedup on the File System
 
-- Hash collision gives *hint* on possible duplication
+- Hash collisions give *hints* on possible duplications
 
 - (Decentralized) deduplication process
 
@@ -456,9 +462,9 @@ Unbelievable sharing on *heterogeneous* VMs
 
 - Evaluation
 
-    * At 4KB level: reduce 1.3TB to 235GB
+    * At 4KB level: reduce from 1.3TB to 235GB
 
-    * Ordinary linked-clone: save 1.3TB to 740GB
+    * Ordinary linked-clone: 1.3TB down to 740GB
 
 ![FS block](./resource/fs-block-size.jpg)
 
@@ -470,7 +476,7 @@ Unbelievable sharing on *heterogeneous* VMs
 
 - Evaluation
 
-    * Surprising block repetition count
+    * Surprising block repetition counts
 
 ![FS reference count](./resource/fs-ref-cnt.jpg)
 
@@ -482,7 +488,7 @@ Unbelievable sharing on *heterogeneous* VMs
 - Use less memory
 - Having more VMs; lower down your workload!
 - Faster VM Migration!
-- *Faster VM boot up!* (e.g. classroom)
+- **Faster VM boot up!** (e.g. classroom)
 
 ![fs VM boot](./resource/fs-vmboot.jpg)
 
@@ -492,18 +498,20 @@ Unbelievable sharing on *heterogeneous* VMs
 
 ### Issues
 
-- Sharing cause traps
+- Sharing causes traps
     * In XLH, many short-lived pages are shared
-        + share and trap and share and trap and share ....
-![trap.jpg](resource/trap.jpg)
-    * In introspection, **all** free pages are read-only
-        + Using new memory always cause trap!
+        + **share** and **trap** and **share** and **trap** and **share** ....
+
+        ![trap.jpg](resource/trap.jpg)
+
+    * In introspection, *all* free pages are marked as read-only
+        + Allocating new memory always causes traps!
 
 --
 
 ### Issues
 
-- Dedup introduce overhead
+- Deduplication introduces overhead
   * Scaning, Hashing
   * Sniffing (XLH)
   * Patching, Compressing (Diff)
@@ -516,13 +524,15 @@ Unbelievable sharing on *heterogeneous* VMs
 
 ### Ideas
 
-- Copy on neighbour write
-    * Accesses may have spatial locality, copy before it traps
+- Copy upon neighbour pages write
+    * Accesses may have spatial locality; copy before it traps
     * Must track for each VM, however.
-![CONW.jpg](resource/CONW.jpg)
-- Ondemand dedup
+
+        ![CONW.jpg](resource/CONW.jpg)
+
+- On-demand deduplications
     * With the technique of XLH, sharing becomes faster
-    * Only introspects unless VMs are allocating pages back
+    * Only introspects when the VMs are allocating pages back
 
 ---
 
