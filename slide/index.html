@@ -77,7 +77,7 @@ b00902107 Shu-Hung You
 
     * We only need **1 copy** for each unique pages
 
-    * You must have heard it: `fork()`!
+    * You must have heard it: `fork()`, shared libs, etc!
 
 ![intro](./resource/dedup-intro.jpg)
 
@@ -89,6 +89,8 @@ b00902107 Shu-Hung You
 
     * While HDDs are cheap, the memory is not
 
+        + ( &Rightarrow; *main reason* )
+
     * We often run a bunch of VMs having same configurations
 
 --
@@ -96,7 +98,7 @@ b00902107 Shu-Hung You
 ### Introduction to Deduplication
 <!-- http://speakvirtual.com/2011/02/28/memory-overcommitment-in-xenserver-and-esx/ -->
 
-- Previous approaches to memory overcommitment
+- Previous approaches to **memory overcommitment**
 
     * Transparent page sharing
 
@@ -142,7 +144,7 @@ b00902107 Shu-Hung You
 
     * Periodically perform full-memory scans
 
-    * (Maintain a hash table)
+    * (maintain a hash table)
 
 ![dedup-scan-hash](./resource/dedup-scan.jpg) 
 
@@ -156,7 +158,9 @@ b00902107 Shu-Hung You
 
         + Must scan at a low rate to keep the overhead small
 
-        + Short-lived pages are mostly ignored
+        + Short-lived pages are mostly ignored ([3], Sec. 2)
+
+            > 80% of all encountered opportunities lived between 30s and 5 mins
 
         + Should/Could we share them?
 
@@ -166,11 +170,11 @@ b00902107 Shu-Hung You
 
 - Problem?
 
-    * The hash table is too large
+    * The hash table is too large ([1], Xen architecture limit)
 
         + Use small table or store only part of the hashes?
 
-        + Tolerate collision or longer scanning time
+        + &Rightarrow; Tolerate collision or longer scanning time
 
 ---
 
