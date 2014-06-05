@@ -118,6 +118,8 @@ b00902107 Shu-Hung You
 
 - Linux KSM (Kernel SamePage Merging)
 
+    * `uksm`!
+
 - VMware ESX
 
     * Transparent page sharing (TPS)
@@ -372,6 +374,16 @@ Performance on Linux
 | `unpatch`       |   18.6 |
 | `swap_out_page` |   48.9 |
 | `swap_in_page`  | 7151.6 |
+
+--
+
+### More Than Just Sharing
+
+- Implementation challenges
+
+    1. Xen `ioemu` design
+    1. Memory overcommitment: `swapd` in Domain-0
+    1. Xen heap space size limit (12MB)
 
 --
 
