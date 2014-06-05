@@ -288,6 +288,8 @@ Merging into KSM's flow
 
 ### Make Use Of Free Pages!
 
+Flow
+
 ![introspect-stage.jpg](resource/introspect-stage.jpg)
 
 ( from [4] figure 3 ) <!-- .element: class="text60" -->
@@ -517,6 +519,7 @@ Unbelievable sharing on *heterogeneous* VMs
 - Copy on neighbour write
     * Accesses may have spatial locality, copy before it traps
     * Must track for each VM, however.
+![CONW.jpg](resource/CONW.jpg)
 - Ondemand dedup
     * With the technique of XLH, sharing becomes faster
     * Only introspects unless VMs are allocating pages back
